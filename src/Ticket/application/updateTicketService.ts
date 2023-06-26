@@ -4,7 +4,7 @@ import { UserRepository } from "../../User/domain/user_repository";
 import { Ticket } from "../domain/ticket";
 import { TicketRepository } from "../domain/ticket_repository";
 
-export const sellTicket =
+export const updateTicket =
   (
     ticketRepository: TicketRepository,
     userRepository: UserRepository,

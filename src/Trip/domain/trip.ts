@@ -1,7 +1,10 @@
-export type User = {
+export type Trip = {
+  uuid: string;
   name: string;
-  lastname: string;
-  ident: string;
-  address: string;
-  email: string;
+  from: string;
+  to: string;
+  startDate: Date;
+  endDate: Date;
+  availableSeats: number;
+  price: number;
 };
