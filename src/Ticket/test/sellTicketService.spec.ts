@@ -16,7 +16,6 @@ class SendMessageMock implements NotifyUser {
 
 describe("sellTicket", () => {
   it("should sell a ticket and return the new ticket object", async () => {
-    // Create mocks or stubs for dependencies (userRepository, tripRepository, sendMessage)
     const ticketRepositoryMock = sinon.createStubInstance(TicketInMemory);
     const userRepositoryMock = sinon.createStubInstance(UserInMemoryRepository);
     const tripRepositoryMock = sinon.createStubInstance(TripInMemory);
@@ -44,7 +43,6 @@ describe("sellTicket", () => {
     userRepositoryMock.find.resolves(mockUser);
     tripRepositoryMock.find.resolves(mockTrip);
 
-    // Call the sellTicket function
     const userId = "user123";
     const tripId = "trip123";
     const newTicket = await sellTicket(
@@ -54,7 +52,41 @@ describe("sellTicket", () => {
       sendMessageMock
     )(userId, tripId);
 
-    // Perform assertions
     expect(newTicket).to.be.an("object");
+  });
+
+  it("should sell a ticket and call the send method from the SendEmail object", async () => {
+    const ticketRepositoryMock = sinon.createStubInstance(TicketInMemory);
+    const userRepositoryMock = sinon.createStubInstance(UserInMemoryRepository);
+    const tripRepositoryMock = sinon.createStubInstance(TripInMemory);
+    const sendMessageMock = sinon.createStubInstance(SendMessageMock);
+
+    const mockUser: User = {
+      name: "Andres",
+      lastName: "Martinez",
+      ident: "id1",
+      address: "Colapiche 183, Rio Negro, Argentina",
+      email: "andres@mail.com",
+    };
+
+    const mockTrip: Trip = {
+      name: "Colombia Viajes",
+      uuid: "asd1",
+      from: "Buenos Aires, Argentina",
+      to: "Medellin, Colombia",
+      startDate: new Date(),
+      endDate: new Date(),
+      availableSeats: 10,
+      price: 500,
+    };
+
+    userRepositoryMock.find.resolves(mockUser);
+    tripRepositoryMock.find.resolves(mockTrip);
+
+    const userId = "user123";
+    const tripId = "trip123";
+    await sellTicket(ticketRepositoryMock, userRepositoryMock, tripRepositoryMock, sendMessageMock)(userId, tripId);
+
+    expect(sendMessageMock.send.calledOnce).to.be.true;
   });
 });
