@@ -11,4 +11,20 @@ export default class TicketInMemory implements TicketRepository {
     this.tickets.push(ticket);
     return ticket;
   }
+
+  async find(tripdId: string): Promise<Ticket | undefined> {
+    return this.tickets.find((ticket) => ticket.tripId === tripdId);
+  }
+
+  async update(tripId: string, data: any): Promise<Ticket | undefined> {
+    const foundTicket = await this.find(tripId);
+    if (!foundTicket) return undefined;
+
+    const { startDate, endDate } = data;
+
+    foundTicket.tripStartDate = startDate;
+    foundTicket.tripEndDate = endDate;
+
+    return foundTicket;
+  }
 }

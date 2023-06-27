@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "build": "npx tsc",
     "dev": "npx nodemon --watch",
     "lint": "eslint src/**/*.ts",
@@ -19,13 +19,20 @@
     "nodemailer": "^6.9.3"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.5",
     "@types/express": "^4.17.17",
+    "@types/mocha": "^10.0.1",
     "@types/node": "^20.3.1",
+    "@types/sinon": "^10.0.15",
     "@typescript-eslint/eslint-plugin": "^5.59.11",
     "@typescript-eslint/parser": "^5.59.11",
+    "chai": "^4.3.7",
     "concurrently": "^8.2.0",
     "eslint": "^8.42.0",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.22",
+    "sinon": "^15.2.0",
+    "ts-node": "^10.9.1",
     "typescript": "^5.1.3"
   }
 }
