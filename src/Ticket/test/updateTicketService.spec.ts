@@ -4,7 +4,6 @@ import { updateTicket } from "../application/updateTicketService";
 import sinon from "sinon";
 import TicketInMemory from "../infraestructure/ticketInMemoryRepository";
 import UserInMemoryRepository from "../infraestructure/userInMemoryRepository";
-import TripInMemory from "../infraestructure/tripInMemoryRepository";
 import { NotifyUser } from "../../helpers/notifier.interface";
 import { User } from "../../User/domain/user";
 import { Trip } from "../../Trip/domain/trip";
@@ -74,80 +73,134 @@ describe("sellTicket", () => {
     expect(newTicket.passengerName).to.equal(updateTripData.passengerName);
   });
 
-  //   it("should sell a ticket and call the send method from the SendEmail object", async () => {
-  //     const ticketRepositoryMock = sinon.createStubInstance(TicketInMemory);
-  //     const userRepositoryMock = sinon.createStubInstance(UserInMemoryRepository);
-  //     const tripRepositoryMock = sinon.createStubInstance(TripInMemory);
-  //     const sendMessageMock = sinon.createStubInstance(SendMessageMock);
+  it("should sell a ticket and call the send method from the SendEmail object", async () => {
+    const ticketRepositoryMock = sinon.createStubInstance(TicketInMemory);
+    const userRepositoryMock = sinon.createStubInstance(UserInMemoryRepository);
+    const sendMessageMock = sinon.createStubInstance(SendMessageMock);
 
-  //     const mockUser: User = {
-  //       name: "Andres",
-  //       lastName: "Martinez",
-  //       ident: "id1",
-  //       address: "Colapiche 183, Rio Negro, Argentina",
-  //       email: "andres@mail.com",
-  //     };
+    const mockUser: User = {
+      name: "Andres",
+      lastName: "Martinez",
+      ident: "id1",
+      address: "Colapiche 183, Rio Negro, Argentina",
+      email: "andres@mail.com",
+    };
 
-  //     const mockTrip: Trip = {
-  //       name: "Colombia Viajes",
-  //       uuid: "asd1",
-  //       from: "Buenos Aires, Argentina",
-  //       to: "Medellin, Colombia",
-  //       startDate: new Date(),
-  //       endDate: new Date(),
-  //       availableSeats: 10,
-  //       price: 500,
-  //     };
+    const mockTrip: Trip = {
+      name: "Colombia Viajes",
+      uuid: "asd1",
+      from: "Buenos Aires, Argentina",
+      to: "Medellin, Colombia",
+      startDate: new Date(),
+      endDate: new Date(),
+      availableSeats: 10,
+      price: 500,
+    };
 
-  //     userRepositoryMock.find.resolves(mockUser);
-  //     tripRepositoryMock.find.resolves(mockTrip);
+    const updateTripData = {
+      passengerName: "Paco",
+    };
 
-  //     const userId = "user123";
-  //     const tripId = "trip123";
-  //     await sellTicket(ticketRepositoryMock, userRepositoryMock, tripRepositoryMock, sendMessageMock)(userId, tripId);
+    const updatedTicket: Ticket = {
+      uuid: "123asd",
+      passengerName: "Paco",
+      passengerLastname: mockUser.lastName,
+      passengerIdent: mockUser.ident,
+      tripId: mockTrip.uuid,
+      tripName: mockTrip.name,
+      tripStartDate: mockTrip.startDate,
+      tripEndDate: mockTrip.endDate,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
 
-  //     expect(sendMessageMock.send.calledOnce).to.be.true;
-  //   });
+    userRepositoryMock.find.resolves(mockUser);
+    ticketRepositoryMock.update.resolves(updatedTicket);
 
-  //   it("should throw an error when selling a ticket if the user is not found", async () => {
-  //     const ticketRepositoryMock = sinon.createStubInstance(TicketInMemory);
-  //     const userRepositoryMock = sinon.createStubInstance(UserInMemoryRepository);
-  //     const tripRepositoryMock = sinon.createStubInstance(TripInMemory);
-  //     const sendMessageMock = sinon.createStubInstance(SendMessageMock);
+    const userId = "user123";
+    const tripId = "trip123";
+    await updateTicket(ticketRepositoryMock, userRepositoryMock, sendMessageMock)(userId, tripId, updateTripData);
 
-  //     const userId = "user123";
-  //     const tripId = "trip123";
+    expect(sendMessageMock.send.calledOnce).to.be.true;
+  });
 
-  //     userRepositoryMock.find.resolves(undefined);
-  //     tripRepositoryMock.find.resolves(undefined);
+  it("should throw an error when selling a ticket if the user is not found", async () => {
+    const ticketRepositoryMock = sinon.createStubInstance(TicketInMemory);
+    const userRepositoryMock = sinon.createStubInstance(UserInMemoryRepository);
+    const sendMessageMock = sinon.createStubInstance(SendMessageMock);
 
-  //     await expect(
-  //       sellTicket(ticketRepositoryMock, userRepositoryMock, tripRepositoryMock, sendMessageMock)(userId, tripId)
-  //     ).to.eventually.be.rejectedWith(Error, "User not found");
-  //   });
+    const mockUser: User = {
+      name: "Andres",
+      lastName: "Martinez",
+      ident: "id1",
+      address: "Colapiche 183, Rio Negro, Argentina",
+      email: "andres@mail.com",
+    };
 
-  //   it("should throw an error when selling a ticket if the trip is not found", async () => {
-  //     const ticketRepositoryMock = sinon.createStubInstance(TicketInMemory);
-  //     const userRepositoryMock = sinon.createStubInstance(UserInMemoryRepository);
-  //     const tripRepositoryMock = sinon.createStubInstance(TripInMemory);
-  //     const sendMessageMock = sinon.createStubInstance(SendMessageMock);
+    const mockTrip: Trip = {
+      name: "Colombia Viajes",
+      uuid: "asd1",
+      from: "Buenos Aires, Argentina",
+      to: "Medellin, Colombia",
+      startDate: new Date(),
+      endDate: new Date(),
+      availableSeats: 10,
+      price: 500,
+    };
 
-  //     const mockUser: User = {
-  //       name: "Andres",
-  //       lastName: "Martinez",
-  //       ident: "id1",
-  //       address: "Colapiche 183, Rio Negro, Argentina",
-  //       email: "andres@mail.com",
-  //     };
+    const updateTripData = {
+      passengerName: "Paco",
+    };
 
-  //     const userId = "user123";
-  //     const tripId = "trip123";
+    const updatedTicket: Ticket = {
+      uuid: "123asd",
+      passengerName: "Paco",
+      passengerLastname: mockUser.lastName,
+      passengerIdent: mockUser.ident,
+      tripId: mockTrip.uuid,
+      tripName: mockTrip.name,
+      tripStartDate: mockTrip.startDate,
+      tripEndDate: mockTrip.endDate,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
 
-  //     userRepositoryMock.find.resolves(mockUser);
-  //     tripRepositoryMock.find.resolves(undefined);
+    userRepositoryMock.find.resolves(undefined);
+    ticketRepositoryMock.update.resolves(updatedTicket);
 
-  //     await expect(
-  //       sellTicket(ticketRepositoryMock, userRepositoryMock, tripRepositoryMock, sendMessageMock)(userId, tripId)
-  //     ).to.eventually.be.rejectedWith(Error, "Trip not found");
-  //   });
+    const userId = "user123";
+    const tripId = "trip123";
+
+    await expect(
+      updateTicket(ticketRepositoryMock, userRepositoryMock, sendMessageMock)(userId, tripId, updateTripData)
+    ).to.eventually.be.rejectedWith(Error, "User not found");
+  });
+
+  it("should throw an error when selling a ticket if the trip is not found", async () => {
+    const ticketRepositoryMock = sinon.createStubInstance(TicketInMemory);
+    const userRepositoryMock = sinon.createStubInstance(UserInMemoryRepository);
+    const sendMessageMock = sinon.createStubInstance(SendMessageMock);
+
+    const mockUser: User = {
+      name: "Andres",
+      lastName: "Martinez",
+      ident: "id1",
+      address: "Colapiche 183, Rio Negro, Argentina",
+      email: "andres@mail.com",
+    };
+
+    const updateTripData = {
+      passengerName: "Paco",
+    };
+
+    userRepositoryMock.find.resolves(mockUser);
+    ticketRepositoryMock.update.resolves(undefined);
+
+    const userId = "user123";
+    const tripId = "trip123";
+
+    await expect(
+      updateTicket(ticketRepositoryMock, userRepositoryMock, sendMessageMock)(userId, tripId, updateTripData)
+    ).to.eventually.be.rejectedWith(Error, "Ticket not found");
+  });
 });
