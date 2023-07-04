@@ -16,6 +16,6 @@ const sellTicketService = sellTicket(
   tripInMemoryRepository,
   messageSender
 );
-const updateTicketService = updateTicket(ticketInMemoryRepository, userInMemoryRepository, messageSender);
+const updateTicketService = updateTicket(ticketInMemoryRepository);
 
 export { sellTicketService, updateTicketService };
