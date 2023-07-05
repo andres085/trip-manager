@@ -1,11 +1,12 @@
-import { Trip } from "../../Trip/domain/trip";
-import { TripRepository } from "../../Trip/domain/trip_repository";
+import { Trip } from "../domain/trip";
+import { TripRepository } from "../domain/trip_repository";
+import { v4 } from "uuid";
 
 export default class TripInMemory implements TripRepository {
   trips: Trip[] = [
     {
       name: "Colombia Viajes",
-      uuid: "asd1",
+      uuid: v4(),
       from: "Buenos Aires, Argentina",
       to: "Medellin, Colombia",
       startDate: new Date(),

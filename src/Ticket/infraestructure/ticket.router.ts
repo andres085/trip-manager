@@ -10,8 +10,8 @@ ticketRouter.post("/", async (req: Request, res: Response) => {
 });
 
 ticketRouter.put("/", async (req: Request, res: Response) => {
-  const { userId, tripId } = req.query;
-  const response = await updateTicketController(userId, tripId, req.body);
+  const { tripId } = req.query;
+  const response = await updateTicketController(tripId, req.body);
 
   return res.status(200).json({ response });
 });

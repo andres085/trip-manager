@@ -3,8 +3,8 @@ import chaiAsPromised from "chai-as-promised";
 import { sellTicket } from "../application/sellTicketService";
 import sinon from "sinon";
 import TicketInMemory from "../infraestructure/ticketInMemoryRepository";
-import UserInMemoryRepository from "../infraestructure/userInMemoryRepository";
-import TripInMemory from "../infraestructure/tripInMemoryRepository";
+import UserInMemoryRepository from "../../User/infraestructure/userInMemoryRepository";
+import TripInMemory from "../../Trip/infraestructure/tripInMemoryRepository";
 import { NotifyUser } from "../../helpers/notifier.interface";
 import { User } from "../../User/domain/user";
 import { Trip } from "../../Trip/domain/trip";
@@ -29,6 +29,8 @@ describe("sellTicket", () => {
       lastName: "Martinez",
       ident: "id1",
       address: "Colapiche 183, Rio Negro, Argentina",
+      userName: "andresito",
+      password: "4ndres",
       email: "andres@mail.com",
     };
 
@@ -69,6 +71,8 @@ describe("sellTicket", () => {
       lastName: "Martinez",
       ident: "id1",
       address: "Colapiche 183, Rio Negro, Argentina",
+      userName: "andresito",
+      password: "4ndres",
       email: "andres@mail.com",
     };
 
@@ -121,6 +125,8 @@ describe("sellTicket", () => {
       lastName: "Martinez",
       ident: "id1",
       address: "Colapiche 183, Rio Negro, Argentina",
+      userName: "andresito",
+      password: "4ndres",
       email: "andres@mail.com",
     };
 

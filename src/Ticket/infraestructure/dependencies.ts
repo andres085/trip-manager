@@ -2,8 +2,8 @@ import { SendEmailMessage } from "../../helpers/emailNotifier";
 import { sellTicket } from "../application/sellTicketService";
 import { updateTicket } from "../application/updateTicketService";
 import TicketInMemory from "./ticketInMemoryRepository";
-import TripInMemory from "./tripInMemoryRepository";
-import UserInMemoryRepository from "./userInMemoryRepository";
+import TripInMemory from "../../Trip/infraestructure/tripInMemoryRepository";
+import UserInMemoryRepository from "../../User/infraestructure/userInMemoryRepository";
 
 const ticketInMemoryRepository = new TicketInMemory();
 const tripInMemoryRepository = new TripInMemory();
