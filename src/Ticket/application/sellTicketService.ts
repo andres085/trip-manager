@@ -1,3 +1,4 @@
+import { CustomError } from "../../errors/customError";
 import { NotifyUser } from "../../helpers/notifier.interface";
 import { TripRepository } from "../../Trip/domain/trip_repository";
 import { UserRepository } from "../../User/domain/user_repository";
@@ -13,10 +14,11 @@ export const sellTicket =
   ) =>
   async (userId: any, tripId: any) => {
     const foundUser = await userRepository.find(userId);
-    if (!foundUser) throw new Error("User not found");
+
+    if (!foundUser) throw new CustomError("User not found", 404);
 
     const foundTrip = await tripRepository.find(tripId);
-    if (!foundTrip) throw new Error("Trip not found");
+    if (!foundTrip) throw new CustomError("Trip not found", 404);
 
     const newTicket: Ticket = {
       uuid: "asd",
