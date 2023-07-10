@@ -31,21 +31,21 @@ export default class UserInMemoryRepository implements UserRepository {
     return newUser;
   }
 
-  async find(id: string): Promise<User | undefined> {
+  async find(id: string): Promise<User | null> {
     const userFound = this.users.find((user) => user.ident === id);
 
     if (!userFound) {
-      return undefined;
+      return null;
     }
 
     return userFound;
   }
 
-  async findByUsername(userName: string): Promise<User | undefined> {
+  async findByUsername(userName: string): Promise<User | null> {
     const userFound = this.users.find((user) => user.userName === userName);
 
     if (!userFound) {
-      return undefined;
+      return null;
     }
 
     return userFound;

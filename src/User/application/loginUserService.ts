@@ -1,11 +1,10 @@
-import { User } from "../domain/user";
 import { UserRepository } from "../domain/user_repository";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { CustomError } from "../../errors/customError";
 
 export const loginUser = (userRepository: UserRepository) => async (userName: string, password: string) => {
-  const foundUser = (await userRepository.findByUsername(userName)) as User;
+  const foundUser = await userRepository.findByUsername(userName);
 
   if (!foundUser) throw new CustomError("User not found", 404);
 
