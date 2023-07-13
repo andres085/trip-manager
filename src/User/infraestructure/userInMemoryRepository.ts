@@ -7,10 +7,10 @@ export default class UserInMemoryRepository implements UserRepository {
     {
       name: "Andres",
       lastName: "Martinez",
-      ident: v4(),
+      ident: "413b66b6-e582-45ee-b931-051a25f00093",
       address: "Colapiche 183, Rio Negro, Argentina",
       userName: "andresito1985",
-      password: "4ndRes",
+      password: "$2b$10$CAdnMUtzIvY.GCJWsX2i0e2mfe/FXTJEPS/5be61MaSCxlOIVN4YC",
       email: "andres@mail.com",
     },
   ];
