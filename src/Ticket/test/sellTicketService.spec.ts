@@ -12,7 +12,10 @@ import { Trip } from "../../Trip/domain/trip";
 chai.use(chaiAsPromised);
 
 class SendMessageMock implements NotifyUser {
-  async send(email: string, text: string) {
+  async sendTicketEmail(email: string, text: string) {
+    console.log(`Sending message to ${email}, with ${text}`);
+  }
+  async sendUserEmail(email: string, text: string) {
     console.log(`Sending message to ${email}, with ${text}`);
   }
 }
@@ -94,7 +97,7 @@ describe("sellTicket", () => {
     const tripId = "trip123";
     await sellTicket(ticketRepositoryMock, userRepositoryMock, tripRepositoryMock, sendMessageMock)(userId, tripId);
 
-    expect(sendMessageMock.send.calledOnce).to.be.true;
+    expect(sendMessageMock.sendTicketEmail.calledOnce).to.be.true;
   });
 
   it("should throw an error when selling a ticket if the user is not found", async () => {

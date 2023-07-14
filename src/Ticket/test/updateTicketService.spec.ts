@@ -12,7 +12,10 @@ import { Ticket } from "../domain/ticket";
 chai.use(chaiAsPromised);
 
 class SendMessageMock implements NotifyUser {
-  async send(email: string, text: string) {
+  async sendTicketEmail(email: string, text: string) {
+    console.log(`Sending message to ${email}, with ${text}`);
+  }
+  async sendUserEmail(email: string, text: string) {
     console.log(`Sending message to ${email}, with ${text}`);
   }
 }

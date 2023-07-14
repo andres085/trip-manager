@@ -1,12 +1,12 @@
 import { registerUser } from "../application/registerUserService";
 import { loginUser } from "../application/loginUserService";
-import UserInMemory from "./userInMemoryRepository";
+import UserInSqliteRepository from "./userInSqliteRepository";
 import { SendEmailMessage } from "../../helpers/emailNotifier";
 
-const userInMemory = new UserInMemory();
+const userInSqliteRepository = new UserInSqliteRepository();
 const messageSender = new SendEmailMessage();
 
-const registerUserService = registerUser(userInMemory, messageSender);
-const loginUserService = loginUser(userInMemory);
+const registerUserService = registerUser(userInSqliteRepository, messageSender);
+const loginUserService = loginUser(userInSqliteRepository);
 
 export { registerUserService, loginUserService };
