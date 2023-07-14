@@ -1,7 +1,7 @@
 import { Ticket } from "./ticket";
 
 export interface TicketRepository {
-  save(ticket: Ticket): Promise<Ticket | undefined>;
-  find(tripId: string): Promise<Ticket | undefined>;
-  update(tripId: string, data: any): Promise<Ticket | undefined>;
+  save(ticket: Ticket): Promise<Ticket | null>;
+  find(tripId: string): Promise<Ticket | null>;
+  update(tripId: string, data: any): Promise<Ticket | null>;
 }

@@ -46,6 +46,22 @@ export default class TripInMemory implements TripRepository {
     },
   ];
 
+  async save(data: any): Promise<Trip> {
+    const newTrip: Trip = {
+      uuid: v4(),
+      name: data.name,
+      from: data.from,
+      to: data.to,
+      startDate: data.startDate,
+      endDate: data.endDate,
+      availableSeats: data.availableSeats,
+      price: data.price,
+    };
+
+    this.trips.push(newTrip);
+
+    return newTrip;
+  }
   async find(id: string): Promise<Trip | null> {
     const foundTrip = this.trips.find((trip) => trip.uuid === id);
     if (!foundTrip) {

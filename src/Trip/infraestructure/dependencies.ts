@@ -1,7 +1,9 @@
 import { findTripsWithCombination } from "../application/findTripsWithCombination";
-import TripInMemory from "./tripInMemoryRepository";
+import { saveNewTrip } from "../application/saveNewTrip";
+import TripInSqlite from "./tripInSqliteRepository";
 
-const tripInMemory = new TripInMemory();
+const tripInSqlite = new TripInSqlite();
 
-const findTripsWithCombinationService = findTripsWithCombination(tripInMemory);
-export default findTripsWithCombinationService;
+const findTripsWithCombinationService = findTripsWithCombination(tripInSqlite);
+const saveNewTripService = saveNewTrip(tripInSqlite);
+export { findTripsWithCombinationService, saveNewTripService };

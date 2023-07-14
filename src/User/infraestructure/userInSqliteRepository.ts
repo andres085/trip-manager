@@ -2,7 +2,7 @@ import { User } from "../domain/user";
 import { UserRepository } from "../domain/user_repository";
 import { v4 } from "uuid";
 import { AppDataSource } from "../../db";
-import { UserEntity } from "./database/entities/user";
+import { UserEntity } from "./database/entity/user";
 
 export default class UserInSqliteRepository implements UserRepository {
   async save(data: any): Promise<User> {

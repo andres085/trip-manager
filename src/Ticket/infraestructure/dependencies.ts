@@ -1,27 +1,22 @@
 import { SendEmailMessage } from "../../helpers/emailNotifier";
 import { sellTicket } from "../application/sellTicketService";
 import { updateTicket } from "../application/updateTicketService";
-import TicketInMemory from "./ticketInMemoryRepository";
-import TripInMemory from "../../Trip/infraestructure/tripInMemoryRepository";
-import UserInMemoryRepository from "../../User/infraestructure/userInMemoryRepository";
 import { sellTicketWithCombination } from "../application/sellTicketWithCombination";
+import TicketInSqlite from "./ticketInSqliteRepository";
+import TripInSqlite from "../../Trip/infraestructure/tripInSqliteRepository";
+import UserInSqliteRepository from "../../User/infraestructure/userInSqliteRepository";
 
-const ticketInMemoryRepository = new TicketInMemory();
-const tripInMemoryRepository = new TripInMemory();
-const userInMemoryRepository = new UserInMemoryRepository();
+const ticketInSqliteRepository = new TicketInSqlite();
+const tripInSqliteRepository = new TripInSqlite();
+const userInSqlite = new UserInSqliteRepository();
 const messageSender = new SendEmailMessage();
 
-const sellTicketService = sellTicket(
-  ticketInMemoryRepository,
-  userInMemoryRepository,
-  tripInMemoryRepository,
-  messageSender
-);
-const updateTicketService = updateTicket(ticketInMemoryRepository);
+const sellTicketService = sellTicket(ticketInSqliteRepository, userInSqlite, tripInSqliteRepository, messageSender);
+const updateTicketService = updateTicket(ticketInSqliteRepository);
 const sellTicketWithCombinationService = sellTicketWithCombination(
-  userInMemoryRepository,
-  tripInMemoryRepository,
-  ticketInMemoryRepository,
+  userInSqlite,
+  tripInSqliteRepository,
+  ticketInSqliteRepository,
   messageSender
 );
 
