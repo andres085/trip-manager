@@ -32,7 +32,7 @@ export const sellTicketWithCombination =
         updatedAt: new Date(),
       };
 
-      await sendMessage.send(foundUser.email, newTicket.uuid);
+      await sendMessage.sendTicketEmail(foundUser.email, newTicket.uuid);
       return await ticketRepository.save(newTicket);
     });
 

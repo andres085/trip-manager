@@ -35,7 +35,7 @@ export const sellTicket =
 
     await ticketRepository.save(newTicket);
 
-    await sendMessage.send(foundUser.email, newTicket.uuid);
+    await sendMessage.sendTicketEmail(foundUser.email, newTicket.uuid);
 
     return newTicket;
   };

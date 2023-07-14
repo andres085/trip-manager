@@ -1,11 +1,10 @@
-import express, { Express } from "express";
 import dotenv from "dotenv";
+dotenv.config();
+import express, { Express } from "express";
 import { ticketRouter } from "./Ticket/infraestructure/ticket.router";
 import { userRouter } from "./User/infraestructure/user.router";
 import { tripRouter } from "./Trip/infraestructure/trip.router";
 import { errorsMiddleware } from "./middlewares/errors";
-
-dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT;

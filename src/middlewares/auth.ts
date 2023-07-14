@@ -11,7 +11,7 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
   if (authHeader) {
     const token = authHeader.split(" ")[1]; // Bearer <token>
 
-    jwt.verify(token, "ultrasecretkey" as string, (err, user) => {
+    jwt.verify(token, process.env.SECRET_KEY as string, (err, user) => {
       if (err) {
         return res.sendStatus(403);
       }

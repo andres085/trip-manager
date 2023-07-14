@@ -12,5 +12,5 @@ export const loginUser = (userRepository: UserRepository) => async (userName: st
 
   if (!passwordMatch) throw new CustomError("Invalid login credentials", 401);
 
-  return jwt.sign({ userUuid: foundUser.ident, username: foundUser.userName }, "ultrasecretkey");
+  return jwt.sign({ userUuid: foundUser.ident, username: foundUser.userName }, process.env.SECRET_KEY as string);
 };
