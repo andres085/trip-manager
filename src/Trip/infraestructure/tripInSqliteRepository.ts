@@ -47,4 +47,18 @@ export default class TripInSqlite implements TripRepository {
       },
     });
   }
+
+  async update(id: string, data: any): Promise<Trip | null> {
+    const updatedTrip = await this.tripRepository.update(id, {
+      ...data,
+    });
+
+    if (!updatedTrip) {
+      return null;
+    }
+
+    const foundTrip = (await this.find(id)) as Trip;
+
+    return foundTrip;
+  }
 }

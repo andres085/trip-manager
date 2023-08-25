@@ -5,4 +5,5 @@ export interface TripRepository {
   find(id: string): Promise<Trip | null>;
   findMany(): Promise<Trip[]>;
   findManyByUUIDS(uuids: string[]): Promise<Trip[]>;
+  update(id: string, data: any): Promise<Trip | null>;
 }

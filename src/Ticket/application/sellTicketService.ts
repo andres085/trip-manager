@@ -20,6 +20,12 @@ export const sellTicket =
     const foundTrip = await tripRepository.find(tripId);
     if (!foundTrip) throw new CustomError("Trip not found", 404);
 
+    if (foundUser.age > 65 || foundUser.age < 10) {
+      const discount = (foundTrip.price * 20) / 100;
+      const newPrice = foundTrip.price - discount;
+      await tripRepository.update(tripId, { price: newPrice });
+    }
+
     const newTicket: Ticket = {
       uuid: "asd",
       passengerName: foundUser.name,

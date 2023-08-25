@@ -14,6 +14,7 @@ export default class UserInSqliteRepository implements UserRepository {
       userName: data.userName,
       password: data.password,
       email: data.email,
+      age: data.age,
     };
 
     const userRepository = AppDataSource.getRepository(UserEntity);

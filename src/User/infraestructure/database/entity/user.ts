@@ -16,4 +16,6 @@ export class UserEntity {
   password: string;
   @Column()
   email: string;
+  @Column()
+  age: number;
 }
