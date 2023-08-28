@@ -1,3 +1,5 @@
+import { CustomError } from "../../errors/customError";
+import { TripDtoSchema } from "../validations/trip-create.validations";
 import { findTripsWithCombinationService, saveNewTripService } from "./dependencies";
 
 export const tripCombinationController = async (from: string, to: string) => {
@@ -5,5 +7,9 @@ export const tripCombinationController = async (from: string, to: string) => {
 };
 
 export const saveNewTripController = async (data: any) => {
-  return await saveNewTripService(data);
+  const parsedData = TripDtoSchema.safeParse(data);
+  if (!parsedData.success) {
+    throw new CustomError("Invalid data for trip", 400);
+  }
+  return await saveNewTripService(parsedData.data);
 };
